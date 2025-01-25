@@ -47,8 +47,7 @@
                                 <tr>
                                     <td style="width: 5%">{{ $data->firstItem() + $key }}</td>
                                     <td style="width: 15%">
-                                        <img src="{{ Storage::url($item->profile_photo) }}" alt=""
-                                            style="width: 100%;  object-fit: cover;">
+                                        <img src="{{ asset('storage/' . $item->profile_photo) }}" alt="" style="width: 100%; object-fit: cover;">
                                     </td>
                                     <td style="width: 20%">{{ $item->email }}</td>
                                     <td style="width: 15%">
