@@ -41,7 +41,7 @@
                                 <th style="width: 15%">Role</th>
                                 <th style="width: 20%">Aksi</th>
                             </tr>
-                        </thead>
+                    </thead>
                         <tbody>
                             @forelse ($data as $key => $item)
                                 <tr>
