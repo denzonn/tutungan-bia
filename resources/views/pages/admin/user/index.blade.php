@@ -41,13 +41,16 @@
                                 <th style="width: 15%">Role</th>
                                 <th style="width: 20%">Aksi</th>
                             </tr>
-                    </thead>
+                        </thead>
                         <tbody>
                             @forelse ($data as $key => $item)
                                 <tr>
                                     <td style="width: 5%">{{ $data->firstItem() + $key }}</td>
                                     <td style="width: 15%">
-                                        <img src="{{ asset('storage/' . $item->profile_photo) }}" alt="" style="width: 100%; object-fit: cover;">
+                                        @if ($item->profile_photo)
+                                            <img src="{{ Storage::url($item->profile_photo) }}" alt=""
+                                                style="width: 100%; object-fit: cover;">
+                                        @endif
                                     </td>
                                     <td style="width: 20%">{{ $item->email }}</td>
                                     <td style="width: 15%">
