@@ -80,7 +80,7 @@
                                         <span
                                             class="color{{ ($index % 4) + 1 }} mb-2">{{ $item->articleContributor->name }}</span>
                                         <h4><a
-                                                href="details.html">{{ \Illuminate\Support\Str::limit($item->title, 55, '...') }}</a>
+                                                href="{{ $item->slug }}">{{ \Illuminate\Support\Str::limit($item->title, 55, '...') }}</a>
                                         </h4>
                                     </div>
                                 </div>
