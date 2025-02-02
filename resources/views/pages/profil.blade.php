@@ -16,7 +16,7 @@
                             <div class="section-tittle mb-30 pt-30">
                                 <h3>Tentang Kami</h3>
                             </div>
-                            <div class="about-prea">
+                            <div class="about-prea" style="text-align: justify">
                                 {!! $data->content !!}
                             </div>
                         </div>
