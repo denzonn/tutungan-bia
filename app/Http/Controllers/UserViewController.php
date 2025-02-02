@@ -17,8 +17,7 @@ class UserViewController extends Controller
 {
     public function getTrending()
     {
-        return News::where('created_at', '>=', Carbon::now()->subDay()) // 24 jam terakhir
-            ->orderBy('click_count', 'desc') // Urutkan berdasarkan views
+        return News::orderBy('click_count', 'desc') // Urutkan berdasarkan views
             ->where('status', 'published')
             ->take(1) // Ambil 1 artikel
             ->first(); // Ambil artikel pertama
@@ -102,6 +101,7 @@ class UserViewController extends Controller
     public function index()
     {
         $trending = $this->getTrending();
+        dd($trending);
         $topTrending = [];
         $topTrendingArticle = [];
 
