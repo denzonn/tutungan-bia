@@ -101,7 +101,6 @@ class UserViewController extends Controller
     public function index()
     {
         $trending = $this->getTrending();
-        dd($trending);
         $topTrending = [];
         $topTrendingArticle = [];
 
