@@ -30,7 +30,7 @@ Route::get('/berita', [UserViewController::class, 'berita'])->name('berita');
 Route::get('/berita/{slug}', [UserViewController::class, 'detailBerita'])->name('detail-berita');
 Route::get('/artikel', [UserViewController::class, 'artikel'])->name('artikel');
 Route::get('/artikel/{slug}', [UserViewController::class, 'detailArtikel'])->name('detail-artikel');
-Route::get('/dokument', [UserViewController::class, 'dokument'])->name('dokument');
+Route::get('/dokumen', [UserViewController::class, 'dokument'])->name('dokument');
 
 
 Route::prefix('admin')

@@ -67,7 +67,7 @@
                                     <td style="width: 10%">{{ $item->editor->name }}</td>
                                     <td style="width: 20%">
                                         <div class="row ml-1">
-                                            @if ($item->status == 'draft')
+                                            @if ($item->status == 'draft' || $item->status == 'published' && auth()->user()->hasRole(['SUPERADMIN', 'ADMIN'])) 
                                                 <div>
                                                     <a href="{{ route('berita.edit', $item->id) }}"
                                                         class="btn btn-warning">Edit</a>

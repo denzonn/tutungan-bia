@@ -26,7 +26,7 @@
                                 <strong>Trending now</strong>
                                 <div class="trending-animated">
                                     <ul id="js-news" class="js-hidden">
-                                        <li class="news-item">Website Berita dan Artikel Official Gereja Toraja</li>
+                                        <li class="news-item">{{ $currentDate }}</li>
                                     </ul>
                                 </div>
 
@@ -36,15 +36,23 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <!-- Trending Top -->
-                            <div class="trending-top mb-30">
-                                <div class="trend-top-img">
-                                    <img src="{{ Storage::url($trending->image) }}" alt="">
-                                    <div class="trend-top-cap">
-                                        <span>{{ \Carbon\Carbon::parse($trending->updated_at)->translatedFormat('l, d F Y') }}</span>
-                                        <h2><a href="{{ route('detail-berita', $trending->slug) }}">{{ $trending->title }}</a></h2>
+                            @if ($trending)
+                                <div class="trending-top mb-30">
+                                    <div class="trend-top-img">
+                                        <img src="{{ Storage::url($trending->image) }}" alt="">
+                                        <div class="trend-top-cap">
+                                            <span>{{ \Carbon\Carbon::parse($trending->updated_at)->translatedFormat('l, d F Y') }}</span>
+                                            <h2><a
+                                                    href="{{ route('detail-berita', $trending->slug) }}">{{ $trending->title }}</a>
+                                            </h2>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="trending-top mb-30">
+                                    <p class="text-center">Tidak ada berita</p>
+                                </div>
+                            @endif
                             <!-- Trending Bottom -->
                             <div class="trending-bottom">
                                 <div class="row">
@@ -57,11 +65,14 @@
                                                 <div class="trend-bottom-cap">
                                                     <span
                                                         class="color1">{{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, d F Y') }}</span>
-                                                    <h4><a href="{{ route('detail-berita', $item->slug) }}">{{ $item->title }}</a></h4>
+                                                    <h4><a
+                                                            href="{{ route('detail-berita', $item->slug) }}">{{ $item->title }}</a>
+                                                    </h4>
                                                 </div>
                                             </div>
                                         </div>
                                     @empty
+                                        <p>No trending articles available.</p>
                                     @endforelse
                                 </div>
                             </div>
@@ -192,7 +203,9 @@
                                 <div class="single-box">
                                     <div class="follow-us d-flex align-items-center">
                                         <div class="follow-social">
-                                            <a href="#"><img src="{{ asset('assets/frontend/assets/img/news/icon-fb.png') }}" alt=""></a>
+                                            <a href="#"><img
+                                                    src="{{ asset('assets/frontend/assets/img/news/icon-fb.png') }}"
+                                                    alt=""></a>
                                         </div>
                                         <div class="follow-count">
                                             <span>8,045</span>
@@ -201,7 +214,9 @@
                                     </div>
                                     <div class="follow-us d-flex align-items-center">
                                         <div class="follow-social">
-                                            <a href="#"><img src="{{ asset('assets/frontend/assets/img/news/icon-tw.png') }}" alt=""></a>
+                                            <a href="#"><img
+                                                    src="{{ asset('assets/frontend/assets/img/news/icon-tw.png') }}"
+                                                    alt=""></a>
                                         </div>
                                         <div class="follow-count">
                                             <span>8,045</span>
@@ -210,7 +225,9 @@
                                     </div>
                                     <div class="follow-us d-flex align-items-center">
                                         <div class="follow-social">
-                                            <a href="#"><img src="{{ asset('assets/frontend/assets/img/news/icon-ins.png') }}" alt=""></a>
+                                            <a href="#"><img
+                                                    src="{{ asset('assets/frontend/assets/img/news/icon-ins.png') }}"
+                                                    alt=""></a>
                                         </div>
                                         <div class="follow-count">
                                             <span>8,045</span>
@@ -219,7 +236,9 @@
                                     </div>
                                     <div class="follow-us d-flex align-items-center">
                                         <div class="follow-social">
-                                            <a href="#"><img src="{{ asset('assets/frontend/assets/img/news/icon-yo.png') }}" alt=""></a>
+                                            <a href="#"><img
+                                                    src="{{ asset('assets/frontend/assets/img/news/icon-yo.png') }}"
+                                                    alt=""></a>
                                         </div>
                                         <div class="follow-count">
                                             <span>8,045</span>
@@ -254,14 +273,17 @@
                                 @forelse ($weeklyNews as $item)
                                     <div class="weekly2-single">
                                         <div class="weekly2-img">
-                                            <img src="{{ Storage::url($item->image) }}" alt="" style="object-fit: cover; width: 100%; height: 150px; border-radius: 5px;">
+                                            <img src="{{ Storage::url($item->image) }}" alt=""
+                                                style="object-fit: cover; width: 100%; height: 150px; border-radius: 5px;">
                                         </div>
                                         <div class="weekly2-caption">
                                             <span class="color1">Berita Mingguan</span>
                                             <p>
                                                 {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, d F Y') }}
                                             </p>
-                                            <h4><a href="{{ route('detail-berita', $item->slug) }}">{{ $item->title }}</a></h4>
+                                            <h4><a
+                                                    href="{{ route('detail-berita', $item->slug) }}">{{ $item->title }}</a>
+                                            </h4>
                                         </div>
                                     </div>
                                 @empty
@@ -276,7 +298,7 @@
             <div class="row">
                 <div class="col-12">
                     <h2 class="contact-title">Saran</h2>
-                </div>                
+                </div>
                 <div class="col-12">
                     <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
                         novalidate="novalidate">

@@ -36,3 +36,5 @@
 <!-- Jquery Plugins, main Jquery -->	
 <script src="{{ asset('assets/frontend/assets/js/plugins.js') }}"></script>
 <script src="{{ asset('assets/frontend/assets/js/main.js') }}"></script>
+
+

@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label for="file">File</label>
                                 <input type="file" class="form-control @error('file') is-invalid @enderror"
-                                    name="file" value="{{ old('file') }}" id="file" accept=".pdf, .doc, .docx">
+                                    name="file" value="{{ old('file') }}" id="file">
                                 @error('file')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror

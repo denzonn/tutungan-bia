@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleVisitor;
 use App\Models\CategoryArticle;
 use App\Models\Dokument;
 use App\Models\News;
+use App\Models\NewsVisitors;
 use App\Models\Profile;
 use App\Models\User;
 use Carbon\Carbon;
@@ -100,14 +102,24 @@ class UserViewController extends Controller
     public function index()
     {
         $trending = $this->getTrending();
-        $topTrending = $this->getTopTrending($trending->id);
-        $topTrendingArticle = $this->getTopTrendingArticle();
+        $topTrending = [];
+        $topTrendingArticle = [];
+
+        if ($trending) {
+            $topTrending = $this->getTopTrending($trending->id);
+        }
+
+        if ($topTrendingArticle) {
+            $topTrendingArticle = $this->getTopTrendingArticle();
+        }
+
         $newArticle = $this->getNewArticle();
         $contributor = $this->getContributor();
         $latestNews = $this->getLatestNews();
         $weeklyNews = $this->getWeeklyNews();
+        $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
-        return view('pages.home', compact('trending', 'topTrending', 'topTrendingArticle', 'newArticle', 'contributor', 'latestNews', 'weeklyNews'));
+        return view('pages.home', compact('trending', 'topTrending', 'topTrendingArticle', 'newArticle', 'contributor', 'latestNews', 'weeklyNews', 'currentDate'));
     }
 
     public function profil()
@@ -140,18 +152,36 @@ class UserViewController extends Controller
 
         // Pagination data
         $data = $dataQuery->paginate(12);
+        $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
-        return view('pages.berita', compact('data', 'topTrending'));
+        return view('pages.berita', compact('data', 'topTrending', 'currentDate'));
     }
 
 
-    public function detailBerita($slug)
+    public function detailBerita(Request $request, $slug)
     {
         $data = News::where('slug', $slug)->with(['contributor', 'editor'])->firstOrFail();
 
-        // Increment jumlah klik
-        $data->increment('click_count');
+        $ipAddress = $request->ip();
+        $today = Carbon::today()->toDateString();
 
+        $alreadyVisited = NewsVisitors::where('news_id', $data->id)
+            ->where('ip_address', $ipAddress)
+            ->whereDate('visit_date', $today)
+            ->exists();
+
+        if (!$alreadyVisited) {
+            // Simpan data kunjungan baru
+            NewsVisitors::create([
+                'news_id' => $data->id,
+                'ip_address' => $ipAddress,
+                'visit_date' => $today,
+            ]);
+
+            // Tambahkan hitungan klik
+            $data->increment('click_count');
+        }
+       
         // Ambil berita trending
         $topTrending = $this->getTopTrending($data->id);
 
@@ -192,25 +222,44 @@ class UserViewController extends Controller
 
         // Ambil daftar kategori untuk dropdown
         $categories = CategoryArticle::all();
+        $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
-        return view('pages.article', compact('article', 'categories', 'categorySlug', 'search'));
+        return view('pages.article', compact('article', 'categories', 'categorySlug', 'search', 'currentDate'));
     }
 
-    public function detailArtikel($slug)
+    public function detailArtikel(Request $request, $slug)
     {
         $data = Article::where('slug', $slug)->with(['articleContributor', 'articleEditor'])->firstOrFail();
 
-        // Increment jumlah klik
-        $data->increment('click_count');
+        // Cek apakah user sudah mengunjungi artikel ini hari ini
+        $ipAddress = $request->ip();
+        $today = Carbon::today()->toDateString();
+
+        $alreadyVisited = ArticleVisitor::where('articles_id', $data->id)
+            ->where('ip_address', $ipAddress)
+            ->whereDate('visit_date', $today)
+            ->exists();
+
+        if (!$alreadyVisited) {
+            // Simpan data kunjungan baru
+            ArticleVisitor::create([
+                'articles_id' => $data->id,
+                'ip_address' => $ipAddress,
+                'visit_date' => $today,
+            ]);
+
+            // Tambahkan hitungan klik
+            $data->increment('click_count');
+        }
 
         // Ambil berita trending
         $topTrending = $this->getTopTrendingArticles($data->id);
 
-        // Ambil berita "Baca Ini Juga" (random dari berita lainnya)
-        $readAlso = Article::where('id', '!=', $data->id) // Hindari berita yang sama
+        // Ambil berita "Baca Ini Juga"
+        $readAlso = Article::where('id', '!=', $data->id)
             ->where('status', 'published')
-            ->inRandomOrder() // Ambil secara acak
-            ->take(4) // Batasi jumlah berita
+            ->inRandomOrder()
+            ->take(4)
             ->get();
 
         return view('pages.article-detail', compact('data', 'topTrending', 'readAlso'));
@@ -227,7 +276,8 @@ class UserViewController extends Controller
         }
 
         $data = $query->paginate(20);
+        $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
-        return view('pages.document', compact('data'));
+        return view('pages.document', compact('data', 'currentDate'));
     }
 }

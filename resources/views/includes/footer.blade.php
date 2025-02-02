@@ -8,7 +8,9 @@
                         <div class="single-footer-caption">
                             <!-- logo -->
                             <div class="footer-logo">
-                                <a href="index.html"><img src="{{ asset('assets/frontend/assets/img/logo/logo2_footer.png') }}" alt=""></a>
+                                <a href="index.html"><img
+                                        src="{{ asset('assets/frontend/assets/img/logo/logo2_footer.png') }}"
+                                        alt=""></a>
                             </div>
                             <div class="footer-tittle">
                                 <div class="footer-pera">
@@ -19,18 +21,31 @@
                                 </div>
                             </div>
                             <!-- social -->
-                                                    </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-4  col-sm-6">
                     <div class="single-footer-caption mt-60">
                         <div class="footer-tittle">
+                            <h4>Pengunjung :</h4>
+                        </div>
+                        <div class="footer-tittle">
                             <ul>
-                                <li><a href="{{ route('home') }}" class="text-white">Beranda</a></li>
-                                <li><a href="{{ route('berita') }}" class="text-white">Berita</a></li>
-                                <li><a href="{{ route('artikel') }}" class="text-white">Artikel</a></li>
-                                <li><a href="{{ route('profil') }}" class="text-white">Profil</a></li>
-                                <li><a href="{{ route('dokument') }}" class="text-white">Dokumen</a></li>
+                                <li>
+                                    <p><strong>Hari Ini:</strong> {{ formatVisits($todayVisits) }}</p>
+                                </li>
+                                <li>
+                                    <p><strong>Minggu Ini:</strong> {{ formatVisits($weekVisits) }}</p>
+                                </li>
+                                <li>
+                                    <p><strong>Bulan Ini:</strong> {{ formatVisits($monthVisits) }}</p>
+                                </li>
+                                <li>
+                                    <p><strong>Tahun Ini:</strong> {{ formatVisits($yearVisits) }}</p>
+                                </li>
+                                <li>
+                                    <p><strong>Total Kunjungan:</strong> {{ formatVisits($totalVisits) }}</p>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -66,11 +81,11 @@
                     <div class="col-lg-6">
                         <div class="footer-copy-right">
                             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;
+                                Copyright Tutungan Bia' &copy;
                                 <script>
                                     document.write(new Date().getFullYear());
-                                </script> All rights reserved | This is made by <a href="https://portofoliod.vercel.app/"
-                                    target="_blank">Denson Patibang</a>
+                                </script> All rights reserved | This is made by <a
+                                    href="https://portofoliod.vercel.app/" target="_blank">Denson Patibang</a>
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             </p>
                         </div>

@@ -16,7 +16,7 @@
                                 <strong>Trending now</strong>
                                 <div class="trending-animated">
                                     <ul id="js-news" class="js-hidden">
-                                        <li class="news-item">Website Berita dan Artikel Official Gereja Toraja</li>
+                                        <li class="news-item">{{ $currentDate }}</li>
                                     </ul>
                                 </div>
                             </div>

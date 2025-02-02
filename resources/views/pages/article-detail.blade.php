@@ -6,6 +6,24 @@
 
 @section('content')
     <main class='news-detail-area'>
+        <div class="share-buttons" id="shareButtons">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank"
+                class="share-btn facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank"
+                class="share-btn twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://api.whatsapp.com/send?text={{ urlencode(url()->current()) }}" target="_blank"
+                class="share-btn whatsapp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://t.me/share/url?url={{ urlencode(url()->current()) }}" target="_blank"
+                class="share-btn telegram">
+                <i class="fab fa-telegram"></i>
+            </a>
+        </div>
         <div class="trending-area fix">
             <div class="trending-main">
                 <div class="container">
@@ -38,22 +56,27 @@
                                                 <a href="https://wa.me/?text={{ route('detail-artikel', $data->slug) }}"
                                                     target="_blank" class="whatsapp"><i
                                                         class="fa-brands fa-whatsapp"></i></a>
+                                                <a href="https://t.me/share/url?url={{ route('detail-artikel', $data->slug) }}"
+                                                    target="_blank" class="telegram"><i
+                                                        class="fa-brands fa-telegram"></i></a>
                                             </div>
                                         </div>
-                                        <div>{{ $data->articleContributor->name }}</div>
+                                        <div class="divider"></div>
+                                        <div>{{ formatVisits($data->click_count) }} views</div>
                                         <div class="divider"></div>
                                         <div>{{ $data->created_at->format('d F Y') }}</div>
                                     </div>
                                 </div>
                                 <hr class="mt-2">
-                                <div class="news-content">
+                                <div class="news-content text-justify">
                                     {!! $data->content !!}
                                 </div>
                                 <div class="news-contributor-editor">
                                     <div class="news-contributor-img">
-                                        <img src="{{ $data->articleContributor->profile_photo 
-                                        ? asset('storage/' . $data->articleContributor->profile_photo) 
-                                        : asset('images/user.png') }}" alt="">
+                                        <img src="{{ $data->articleContributor->profile_photo
+                                            ? asset('storage/' . $data->articleContributor->profile_photo)
+                                            : asset('images/user.png') }}"
+                                            alt="">
                                     </div>
                                     <div class="contributor-editor">
                                         <div class="news-contributor">
@@ -128,3 +151,24 @@
         </div>
     </main>
 @endsection
+
+@push('addon-script')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let shareButtons = document.getElementById("shareButtons");
+            let lastScrollTop = 0;
+
+            window.addEventListener("scroll", function() {
+                let scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+                if (scrollTop > 100) { // Tampilkan jika scroll lebih dari 100px
+                    shareButtons.style.right = "0px"; // Muncul
+                } else {
+                    shareButtons.style.right = "-60px"; // Sembunyikan
+                }
+
+                lastScrollTop = scrollTop;
+            });
+        });
+    </script>
+@endpush

@@ -67,6 +67,9 @@
                             </select>
                         </div>
                     @endif
+                    @if ($data->status == 'published')
+                        <input type="hidden" value="published" name="status" >
+                    @endif
                     <button type="submit" class="btn btn-primary">Edit Berita</button>
                 </form>
             </div>
