@@ -22,7 +22,7 @@ class DocumentController extends Controller
         }
 
         // Pagination dengan 10 item per halaman
-        $data = $query->orderBy('created_at', 'desc')->paginate(10);
+        $data = $query->orderBy('updated_at', 'desc')->paginate(10);
 
         return view('pages.admin.document.index', compact('data'));
     }
