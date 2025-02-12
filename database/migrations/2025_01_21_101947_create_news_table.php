@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->longText('content');
             $table->string('image');
+            $table->date('publish_date')->nullable();
             $table->enum('status', ['draft', 'published', 'rejected'])->default('draft');
             $table->unsignedInteger('click_count')->default(0);
             $table->foreignId('contributor_id')->constrained('users')->onDelete('cascade');

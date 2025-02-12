@@ -32,7 +32,7 @@ class NewsController extends Controller
         }
 
         // Pagination dengan 10 item per halaman
-        $data = $query->paginate(10);
+        $data = $query->orderBy('created_at', 'desc')->paginate(10);
 
         return view('pages.admin.news.index', compact('data'));
     }
@@ -71,6 +71,7 @@ class NewsController extends Controller
             'slug' => $data['slug'],
             'content' => $data['content'],
             'image' => $data['image'],
+            'publish_date' => $data['publish_date'],
             'contributor_id' => auth()->user()->id,
             'editor_id' => auth()->user()->id,
         ]);
@@ -130,6 +131,7 @@ class NewsController extends Controller
             'slug' => $data['slug'],
             'content' => $data['content'],
             'image' => $data['image'],
+            'publish_date' => $data['publish_date'],
             'editor_id' => auth()->user()->id,
             'status' => $data['status'] ?? 'draft',
             'updated_at' => Carbon::now(),

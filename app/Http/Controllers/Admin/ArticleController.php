@@ -33,7 +33,7 @@ class ArticleController extends Controller
         }
 
         // Pagination dengan 10 item per halaman
-        $data = $query->paginate(10);
+        $data = $query->orderBy('created_at', 'desc')->paginate(10);
 
         return view('pages.admin.article.index', compact('data'));
     }
@@ -74,6 +74,7 @@ class ArticleController extends Controller
             'category_article_id' => $data['category_article_id'],
             'content' => $data['content'],
             'image' => $data['image'],
+            'publish_date' => $data['publish_date'],
             'contributor_id' => auth()->user()->id,
             'editor_id' => auth()->user()->id,
             'updated_at' => Carbon::now(),
@@ -135,6 +136,7 @@ class ArticleController extends Controller
             'category_article_id' => $data['category_article_id'],
             'content' => $data['content'],
             'image' => $data['image'],
+            'publish_date' => $data['publish_date'],
             'status' => $data['status'] ?? 'draft',
             'editor_id' => auth()->user()->id,
         ]);

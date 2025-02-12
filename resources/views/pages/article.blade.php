@@ -106,7 +106,7 @@
                                                         <img src="{{ Storage::url($item->image) }}" alt=""
                                                             style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px">
                                                         <div class="article-date color{{ ($index % 4) + 1 }}" style="padding: 4px 15px; color: #353535; border-radius: 4px; font-size: 13px">
-                                                            {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, d F Y') }}
+                                                            {{ \Carbon\Carbon::parse($item->publish_date)->translatedFormat('l, d F Y') }}
                                                         </div>
                                                     </div>
                                                     <div class="article-caption mt-2">

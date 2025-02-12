@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('category_article_id')->constrained('category_articles')->onDelete('cascade');
             $table->longText('content');
             $table->string('image');
+            $table->date('publish_date')->nullable();
             $table->enum('status', ['draft', 'published', 'rejected'])->default('draft');
             $table->unsignedInteger('click_count')->default(0);
             $table->foreignId('contributor_id')->constrained('users')->onDelete('cascade');

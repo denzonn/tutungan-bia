@@ -127,7 +127,7 @@
                                             <div class="news-img">
                                                 <img src="{{ Storage::url($item->image) }}" alt="" style="">
                                                 <span
-                                                    class="news-date color{{ ($index % 4) + 1 }}">{{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, d F Y') }}</span>
+                                                    class="news-date color{{ ($index % 4) + 1 }}">{{ \Carbon\Carbon::parse($item->publish_date)->translatedFormat('l, d F Y') }}</span>
                                             </div>
                                             <div class="news-caption">
                                                 <div>

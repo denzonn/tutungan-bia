@@ -22,23 +22,35 @@
                     <div class="form-group">
                         <label for="title">Judul Artikel</label>
                         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
-                            name="title" value="{{ old('title') }}" required />
+                            name="title" value="{{ old('title') }}" placeholder="Silahkan masukkan Judul Artikel" required />
                         @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
-                    <div class="form-group">
-                        <label for="category_article_id">Kategori Artikel</label>
-                        <select name="category_article_id" id="category_article_id" class="form-control">
-                            @forelse ($categories as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @empty
-                                <option value="">Tidak Ada Kategori</option>
-                            @endforelse
-                        </select>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="category_article_id">Kategori Artikel</label>
+                                <select name="category_article_id" id="category_article_id" class="form-control">
+                                    @forelse ($categories as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @empty
+                                        <option value="">Tidak Ada Kategori</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="title">Tanggal Artikel</label>
+                                <input type="date" class="form-control @error('publish_date') is-invalid @enderror" id="publish_date"
+                                    name="publish_date" value="{{ old('publish_date') }}" required />
+                                @error('publish_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
-
                     <div class="form-group">
                         <label for="content">Isi Artikel</label>
                         <textarea name="content" id="editor"></textarea>

@@ -22,26 +22,40 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="title">Judul Artikel</label>
-                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
-                            name="title" value="{{ $data->title }}" required />
+                        <input type="text" class="form-control @error('title') is-invalid @enderror"
+                            id="title" name="title" value="{{ $data->title }}" required />
                         @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
-                    <div class="form-group">
-                        <label for="category_article_id">Kategori Artikel</label>
-                        <select name="category_article_id" id="category_article_id" class="form-control">
-                            @forelse ($categories as $item)
-                                <option value="{{ $item->id }}"
-                                    {{ $item->id == $data->category_article_id ? 'selected' : '' }}>
-                                    {{ $item->name }}
-                                </option>
-                            @empty
-                                <option value="">Tidak Ada Kategori</option>
-                            @endforelse
-                        </select>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="category_article_id">Kategori Artikel</label>
+                                <select name="category_article_id" id="category_article_id" class="form-control">
+                                    @forelse ($categories as $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ $item->id == $data->category_article_id ? 'selected' : '' }}>
+                                            {{ $item->name }}
+                                        </option>
+                                    @empty
+                                        <option value="">Tidak Ada Kategori</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="title">Tanggal Artikel</label>
+                                <input type="date" class="form-control @error('publish_date') is-invalid @enderror" id="publish_date"
+                                    name="publish_date" value="{{ $data->publish_date }}" required />
+                                @error('publish_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="form-group">
                         <label for="content">Isi Artikel</label>
@@ -52,7 +66,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="image">Thumbnail Artikel</label>
-                                <input type="file" name="image" class="form-control" accept=".png, .jpg, .jpeg" id="imageInput" />
+                                <input type="file" name="image" class="form-control" accept=".png, .jpg, .jpeg"
+                                    id="imageInput" />
                             </div>
                         </div>
 
@@ -78,14 +93,14 @@
                             <label for="status">Status Artikel</label>
                             <select name="status" id="status" class="form-control">
                                 <option value="" selected>Silahkan Pilih Status</option>
-                                <option value="published">Di Terima</option>
-                                <option value="rejected">Di Tolak</option>
+                                <option value="published">Diterima</option>
+                                <option value="rejected">Ditolak</option>
                             </select>
                         </div>
                     @endif
 
                     @if ($data->status == 'published')
-                        <input type="hidden" value="published" name="status" >
+                        <input type="hidden" value="published" name="status">
                     @endif
 
                     <button type="submit" class="btn btn-primary">Simpan Artikel</button>

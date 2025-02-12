@@ -41,7 +41,7 @@
                                     <div class="trend-top-img">
                                         <img src="{{ Storage::url($trending->image) }}" alt="">
                                         <div class="trend-top-cap">
-                                            <span>{{ \Carbon\Carbon::parse($trending->updated_at)->translatedFormat('l, d F Y') }}</span>
+                                            <span>{{ \Carbon\Carbon::parse($trending->publish_date)->translatedFormat('l, d F Y') }}</span>
                                             <h2><a
                                                     href="{{ route('detail-berita', $trending->slug) }}">{{ $trending->title }}</a>
                                             </h2>
@@ -64,7 +64,7 @@
                                                 </div>
                                                 <div class="trend-bottom-cap">
                                                     <span
-                                                        class="color1">{{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, d F Y') }}</span>
+                                                        class="color1">{{ \Carbon\Carbon::parse($item->publish_date)->translatedFormat('l, d F Y') }}</span>
                                                     <h4><a
                                                             href="{{ route('detail-berita', $item->slug) }}">{{ $item->title }}</a>
                                                     </h4>
@@ -89,7 +89,8 @@
                                             style="object-fit: cover; width: 100%; height: 100%; border-radius: 5px;">
                                     </div>
                                     <div class="trand-right-cap" style="width: 65%">
-                                        <span class="color{{ ($index % 4) + 1 }}">{{ $item->categoryArticle->name }}</span>
+                                        <span
+                                            class="color{{ ($index % 4) + 1 }}">{{ $item->categoryArticle->name }}</span>
                                         <h4><a
                                                 href="{{ route('detail-artikel', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 40, '...') }}</a>
                                         </h4>
@@ -137,126 +138,8 @@
                     </div>
                 </div>
             </div>
-            <section class="whats-news-area pt-20 pb-20">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="row d-flex justify-content-between">
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="section-tittle mb-30">
-                                        <h3>Kontributor</h3>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="properties__button">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <!-- Nav Card -->
-                                    <div class="tab-content" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                                            aria-labelledby="nav-home-tab">
-                                            <div class="whats-news-caption">
-                                                <div class="row">
-                                                    @forelse ($contributor as $item)
-                                                        <div class="col-lg-6 col-md-6">
-                                                            <div class="single-what-news mb-100">
-                                                                <div class="what-img" style="height: 300px;">
-                                                                    @if ($item->profile_photo)
-                                                                        <img src="{{ Storage::url($item->profile_photo) }}"
-                                                                            alt=""
-                                                                            style="object-fit: cover; width: 100%; height: 100%; border-radius: 5px;">
-                                                                    @else
-                                                                        <img src="https://unsplash.com/illustrations/man-tv-news-reader-or-presenter-at-his-desk-flat-vector-illustration-isolated-on-white-background-anchorman-or-reporter-cartoon-character-in-news-studio-az-yh7q8mqs"
-                                                                            alt="Default Image"
-                                                                            style="object-fit: cover; width: 100%; height: 100%; border-radius: 5px;">
-                                                                    @endif
-                                                                </div>
-                                                                <div class="what-cap">
-                                                                    <span class="color1">Kontributor</span>
-                                                                    <h4><a href="#">{{ $item->name }}</a></h4>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @empty
-                                                        <p>No contributors found.</p>
-                                                    @endforelse
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Nav Card -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <!-- Section Tittle -->
-                            <div class="section-tittle mb-40">
-                                <h3>Follow Us</h3>
-                            </div>
-                            <!-- Flow Socail -->
-                            <div class="single-follow mb-45">
-                                <div class="single-box">
-                                    <div class="follow-us d-flex align-items-center">
-                                        <div class="follow-social">
-                                            <a href="#"><img
-                                                    src="{{ asset('assets/frontend/assets/img/news/icon-fb.png') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="follow-count">
-                                            <span>8,045</span>
-                                            <p>Fans</p>
-                                        </div>
-                                    </div>
-                                    <div class="follow-us d-flex align-items-center">
-                                        <div class="follow-social">
-                                            <a href="#"><img
-                                                    src="{{ asset('assets/frontend/assets/img/news/icon-tw.png') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="follow-count">
-                                            <span>8,045</span>
-                                            <p>Fans</p>
-                                        </div>
-                                    </div>
-                                    <div class="follow-us d-flex align-items-center">
-                                        <div class="follow-social">
-                                            <a href="#"><img
-                                                    src="{{ asset('assets/frontend/assets/img/news/icon-ins.png') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="follow-count">
-                                            <span>8,045</span>
-                                            <p>Fans</p>
-                                        </div>
-                                    </div>
-                                    <div class="follow-us d-flex align-items-center">
-                                        <div class="follow-social">
-                                            <a href="#"><img
-                                                    src="{{ asset('assets/frontend/assets/img/news/icon-yo.png') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="follow-count">
-                                            <span>8,045</span>
-                                            <p>Fans</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- New Poster -->
-                            <div class="news-poster d-none d-lg-block">
-                                <img src="assets/img/news/news_card.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
-        <div class="weekly2-news-area  weekly2-pading gray-bg">
+        <div class="weekly2-news-area  weekly2-pading">
             <div class="container">
                 <div class="weekly2-wrapper">
                     <!-- section Tittle -->
@@ -279,7 +162,7 @@
                                         <div class="weekly2-caption">
                                             <span class="color1">Berita Mingguan</span>
                                             <p>
-                                                {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, d F Y') }}
+                                                {{ \Carbon\Carbon::parse($item->publish_date)->translatedFormat('l, d F Y') }}
                                             </p>
                                             <h4><a
                                                     href="{{ route('detail-berita', $item->slug) }}">{{ $item->title }}</a>
@@ -294,47 +177,151 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-4 px-lg-10" style="width: 100%">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="contact-title">Saran</h2>
+        <div class="gray-bg" style="padding: 40px 0">
+            <div class="container whats-news-area " >
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="col-12">
+                            <h2 class="contact-title">Saran</h2>
+                        </div>
+                        <div class="col-12">
+                            <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
+                                novalidate="novalidate">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9"
+                                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukkan Pesan'" placeholder=" Masukkan Pesan"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control valid" name="name" id="name" type="text"
+                                                onfocus="this.placeholder = ''"
+                                                onblur="this.placeholder = 'Masukkan your name'"
+                                                placeholder="Masukkan your name">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control valid" name="email" id="email" type="email"
+                                                onfocus="this.placeholder = ''"
+                                                onblur="this.placeholder = 'Masukkan email address'" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input class="form-control" name="subject" id="subject" type="text"
+                                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukkan Subject'"
+                                                placeholder="Masukkan Subject">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <button type="submit" class="button button-contactForm boxed-btn">Kirim</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 d-none d-md-block">
+                        <!-- Section Tittle -->
+                        <div class="section-tittle mb-40">
+                            <h3>Follow Us</h3>
+                        </div>
+                        <!-- Flow Socail -->
+                        <div class="single-follow mb-45">
+                            <div class="single-box">
+                                <div class="follow-us d-flex align-items-center">
+                                    <div class="follow-social">
+                                        <a href="#"><img
+                                                src="{{ asset('assets/frontend/assets/img/news/icon-fb.png') }}"
+                                                alt=""></a>
+                                    </div>
+                                    <div class="follow-count">
+                                        <span>8,045</span>
+                                        <p>Fans</p>
+                                    </div>
+                                </div>
+                                <div class="follow-us d-flex align-items-center">
+                                    <div class="follow-social">
+                                        <a href="#"><img
+                                                src="{{ asset('assets/frontend/assets/img/news/icon-tw.png') }}"
+                                                alt=""></a>
+                                    </div>
+                                    <div class="follow-count">
+                                        <span>8,045</span>
+                                        <p>Fans</p>
+                                    </div>
+                                </div>
+                                <div class="follow-us d-flex align-items-center">
+                                    <div class="follow-social">
+                                        <a href="#"><img
+                                                src="{{ asset('assets/frontend/assets/img/news/icon-ins.png') }}"
+                                                alt=""></a>
+                                    </div>
+                                    <div class="follow-count">
+                                        <span>8,045</span>
+                                        <p>Fans</p>
+                                    </div>
+                                </div>
+                                <div class="follow-us d-flex align-items-center">
+                                    <div class="follow-social">
+                                        <a href="#"><img
+                                                src="{{ asset('assets/frontend/assets/img/news/icon-yo.png') }}"
+                                                alt=""></a>
+                                    </div>
+                                    <div class="follow-count">
+                                        <span>8,045</span>
+                                        <p>Fans</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12">
-                    <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
-                        novalidate="novalidate">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukkan Pesan'" placeholder=" Masukkan Pesan"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input class="form-control valid" name="name" id="name" type="text"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukkan your name'"
-                                        placeholder="Masukkan your name">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input class="form-control valid" name="email" id="email" type="email"
-                                        onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Masukkan email address'" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <input class="form-control" name="subject" id="subject" type="text"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukkan Subject'"
-                                        placeholder="Masukkan Subject">
-                                </div>
+            </div>
+        </div>
+        <!-- section Tittle -->
+        <div class="trending-area fix" style="padding-top: 50px">
+            <div class="container">
+                <div class="news-all">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section-tittle mb-30">
+                                <h3>Berita Terbaru</h3>
                             </div>
                         </div>
-                        <div class="form-group mt-3">
-                            <button type="submit" class="button button-contactForm boxed-btn">Kirim</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="row">
+                        @forelse ($latestNews as $index => $item)
+                            <div class="col-lg-3 col-md-4 col-6">
+                                <a href="{{ route('detail-berita', $item->slug) }}" class="news-detail">
+                                    <div class="single-news mb-100">
+                                        <div class="news-img">
+                                            <img src="{{ Storage::url($item->image) }}" alt="" style="">
+                                            <span
+                                                class="news-date color{{ ($index % 4) + 1 }}">{{ \Carbon\Carbon::parse($item->publish_date)->translatedFormat('l, d F Y') }}</span>
+                                        </div>
+                                        <div class="news-caption">
+                                            <div>
+                                                <p class="title">
+                                                    {{ \Illuminate\Support\Str::limit($item->title, 80, '...') }}</p>
+                                            </div>
+                                            <div class="desc">
+                                                {!! $item->content !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @empty
+                            <div class="col-lg-12">
+                                <div class="section-tittle mb-30">
+                                    <h3>Belum ada berita</h3>
+                                </div>
+                            </div>
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>

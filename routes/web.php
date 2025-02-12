@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
@@ -61,6 +62,14 @@ Route::prefix('admin')
 
         Route::put('profile', [ProfileController::class, 'update'])
             ->name('admin.profile.update')
+            ->middleware('role:SUPERADMIN');
+
+        Route::get('setting', [SettingController::class, 'index'])
+            ->name('admin.setting')
+            ->middleware('role:SUPERADMIN');
+
+        Route::put('setting/{id}', [SettingController::class, 'update'])
+            ->name('admin.setting.update')
             ->middleware('role:SUPERADMIN');
     });
 

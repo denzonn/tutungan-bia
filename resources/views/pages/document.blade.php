@@ -34,7 +34,7 @@
                         </div>
                     </div>
 
-                    <table>
+                    <table style="margin-bottom: 100px">
                         <thead>
                             <tr>
                                 <th style="width: 5%">No</th>
@@ -43,7 +43,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $key => $item)
+                            @forelse ($data as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->name }}</td>
@@ -60,7 +60,11 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center" style="color: gray">Tidak Ada Data</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
 

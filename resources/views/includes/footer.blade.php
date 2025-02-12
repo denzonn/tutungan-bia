@@ -1,3 +1,7 @@
+@php
+    $footer = \App\Models\Setting::first();
+@endphp
+
 <footer>
     <!-- Footer Start-->
     <div class="footer-area footer-padding fix">
@@ -8,16 +12,15 @@
                         <div class="single-footer-caption">
                             <!-- logo -->
                             <div class="footer-logo">
-                                <a href="index.html"><img
-                                        src="{{ asset('assets/frontend/assets/img/logo/logo2_footer.png') }}"
-                                        alt=""></a>
+                                <a href="index.html">
+                                    <img
+                                        src="{{ Storage::url($footer->logo) }}"
+                                        alt="">
+                                    </a>
                             </div>
                             <div class="footer-tittle">
                                 <div class="footer-pera">
-                                    <p>Suscipit mauris pede for con sectetuer sodales adipisci for cursus fames lectus
-                                        tempor da blandit gravida sodales Suscipit mauris pede for con sectetuer sodales
-                                        adipisci for cursus fames lectus tempor da blandit gravida sodales Suscipit
-                                        mauris pede for sectetuer.</p>
+                                    <p>{{$footer->short_profile}}</p>
                                 </div>
                             </div>
                             <!-- social -->
@@ -58,13 +61,13 @@
                         <div class="instagram-gellay">
                             <ul class="insta-feed">
                                 <li>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="{{ $footer->sosial_media_1 }}" target="_blank"><i class="fab fa-facebook"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="{{ $footer->sosial_media_2 }}" target="_blank"><i class="fab fa-instagram"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                    <a href="{{ $footer->sosial_media_3 }}" target="_blank"><i class="fab fa-telegram"></i></a>
                                 </li>
                             </ul>
                         </div>

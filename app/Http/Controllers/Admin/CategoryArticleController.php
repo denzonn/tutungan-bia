@@ -21,7 +21,7 @@ class CategoryArticleController extends Controller
         }
 
         // Pagination dengan 10 item per halaman
-        $data = $query->paginate(10);
+        $data = $query->orderBy('created_at', 'desc')->paginate(10);
 
         return view('pages.admin.category-article.index', compact('data'));
     }

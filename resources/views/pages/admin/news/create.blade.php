@@ -22,13 +22,27 @@
                 </div>
                 <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
-                        <label for="title">Judul Berita</label>
-                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
-                            name="title" value="{{ old('title') }}" required />
-                        @error('title')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="row">
+                        <div class="col-12 col-md-9">
+                            <div class="form-group">
+                                <label for="title">Judul Berita</label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
+                                    name="title" value="{{ old('title') }}"  placeholder="Silahkan masukkan Judul Berita" required />
+                                @error('title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="form-group">
+                                <label for="title">Tanggal Berita</label>
+                                <input type="date" class="form-control @error('publish_date') is-invalid @enderror" id="publish_date"
+                                    name="publish_date" value="{{ old('publish_date') }}" required />
+                                @error('publish_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="content">Isi Berita</label>

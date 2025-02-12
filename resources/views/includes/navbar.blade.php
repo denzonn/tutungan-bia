@@ -1,3 +1,6 @@
+@php
+    $header = \App\Models\Setting::first();
+@endphp
 <header>
     <!-- Header Start -->
     <div class="header-area">
@@ -8,7 +11,7 @@
                         <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
                             <!-- sticky -->
                             <div class="sticky-logo">
-                                <a href="{{ route('home') }}"><img src="{{ asset('images/logofixx.png') }}" alt="" style="height: 50px"></a>
+                                <a href="{{ route('home') }}"><img src="{{ Storage::url($header->logo) }}" alt="" style="height: 50px"></a>
                             </div>
                             <!-- Main-menu -->
                             <div class="main-menu d-none d-md-block">

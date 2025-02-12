@@ -86,6 +86,13 @@
                 <i class="fa fa-solid fa-user"></i>
                 <span>Pengguna</span></a>
         </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item  {{ Route::is('admin.setting') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.setting') }}">
+                <i class="fa fa-solid fa-gear"></i>
+                <span>Setting</span></a>
+        </li>
     @endrole
 
     <!-- Sidebar Toggler (Sidebar) -->

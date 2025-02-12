@@ -14,6 +14,7 @@ class News extends Model
         'slug',
         'content',
         'image',
+        'publish_date',
         'status',
         'click_count',
         'contributor_id',

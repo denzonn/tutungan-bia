@@ -59,7 +59,7 @@ class UserViewController extends Controller
 
     public function getNewArticle()
     {
-        return Article::orderBy('created_at', 'desc')
+        return Article::orderBy('publish_date', 'desc')
             ->where('status', 'published')
             ->take(5)
             ->get();
@@ -78,15 +78,15 @@ class UserViewController extends Controller
 
     public function getLatestNews()
     {
-        return News::orderBy('created_at', 'desc')
+        return News::orderBy('publish_date', 'desc')
             ->where('status', 'published')
-            ->take(5)
+            ->take(12)
             ->get();
     }
 
-    public function getWeeklyNews()
+    public function getMonthlyNews()
     {
-        return News::where('created_at', '>=', Carbon::now()->subWeek()) // 1 minggu terakhir
+        return News::where('publish_date', '>=', Carbon::now()->subMonth()) // 1 minggu terakhir
             ->orderBy('click_count', 'desc') // Urutkan berdasarkan views
             ->where('status', 'published')
             ->take(5) // Ambil 5 artikel
@@ -101,24 +101,33 @@ class UserViewController extends Controller
     public function index()
     {
         $trending = $this->getTrending();
-        $topTrending = [];
-        $topTrendingArticle = [];
-
-        if ($trending) {
+        if($trending){
             $topTrending = $this->getTopTrending($trending->id);
+        } else {
+            $topTrending = [];
         }
-
-        if ($topTrendingArticle) {
-            $topTrendingArticle = $this->getTopTrendingArticle();
-        }
+        $topTrendingArticle = $this->getTopTrendingArticle();
 
         $newArticle = $this->getNewArticle();
-        $contributor = $this->getContributor();
         $latestNews = $this->getLatestNews();
-        $weeklyNews = $this->getWeeklyNews();
+        $weeklyNews = $this->getMonthlyNews();
         $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
-        return view('pages.home', compact('trending', 'topTrending', 'topTrendingArticle', 'newArticle', 'contributor', 'latestNews', 'weeklyNews', 'currentDate'));
+        $newArticleCount = $newArticle->count();
+        if ($newArticleCount < 5 && $newArticleCount > 0) {
+            while ($newArticle->count() < 5) {
+                $newArticle->push($newArticle->get($newArticle->count() % $newArticleCount));
+            }
+        }
+
+        $weeklyNewsCount = $weeklyNews->count();
+        if ($weeklyNewsCount < 5 && $weeklyNewsCount > 0) {
+            while ($weeklyNews->count() < 5) {
+                $weeklyNews->push($weeklyNews->get($weeklyNews->count() % $weeklyNewsCount));
+            }
+        }
+
+        return view('pages.home', compact('trending', 'topTrending', 'topTrendingArticle', 'newArticle', 'latestNews', 'weeklyNews', 'currentDate'));
     }
 
     public function profil()
@@ -133,6 +142,13 @@ class UserViewController extends Controller
     {
         $topTrending = $this->getTopTrendingNews();
         $excludedIds = $topTrending->pluck('id')->toArray();
+
+        $topTrendingCount = $topTrending->count();
+        if ($topTrendingCount < 5 && $topTrendingCount > 0) {
+            while ($topTrending->count() < 5) {
+                $topTrending->push($topTrending->get($topTrending->count() % $topTrendingCount));
+            }
+        }
 
         // Ambil kata kunci pencarian
         $search = $request->query('search');
@@ -150,7 +166,7 @@ class UserViewController extends Controller
         }
 
         // Pagination data
-        $data = $dataQuery->paginate(12);
+        $data = $dataQuery->orderBy('created_at', 'desc')->paginate(12);
         $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
         return view('pages.berita', compact('data', 'topTrending', 'currentDate'));
@@ -180,7 +196,7 @@ class UserViewController extends Controller
             // Tambahkan hitungan klik
             $data->increment('click_count');
         }
-       
+
         // Ambil berita trending
         $topTrending = $this->getTopTrending($data->id);
 
@@ -217,7 +233,7 @@ class UserViewController extends Controller
             });
         }
 
-        $article = $query->paginate(12);
+        $article = $query->orderBy('created_at', 'desc')->paginate(12);
 
         // Ambil daftar kategori untuk dropdown
         $categories = CategoryArticle::all();
