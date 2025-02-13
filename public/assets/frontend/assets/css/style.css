@@ -201,7 +201,7 @@ a:hover,
 }
 a,
 button {
-    /* color: #fff; */
+    color: #fff;
     outline: medium none;
 }
 button:focus,
