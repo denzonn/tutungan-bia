@@ -5772,6 +5772,10 @@ del {
     margin-bottom: 30px;
 }
 
+.news-detail-area .news-detail .news-content a {
+    color: #fc3f00;
+}
+
 .news-detail-area .news-detail .news-contributor-editor {
     display: flex;
     justify-content: end;
