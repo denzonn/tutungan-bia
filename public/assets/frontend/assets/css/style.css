@@ -5776,6 +5776,14 @@ del {
     color: #fc3f00;
 }
 
+.single-news .news-caption .desc a {
+    color: #fc3f00;
+}
+
+.single-article .article-caption .desc a {
+    color: #fc3f00;
+}
+
 .news-detail-area .news-detail .news-contributor-editor {
     display: flex;
     justify-content: end;

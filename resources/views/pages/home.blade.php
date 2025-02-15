@@ -177,6 +177,49 @@
                 </div>
             </div>
         </div>
+        <div class="trending-area fix" style="padding-top: 50px">
+            <div class="container">
+                <div class="news-all">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section-tittle mb-30">
+                                <h3>Berita Terbaru</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @forelse ($latestNews as $index => $item)
+                            <div class="col-lg-3 col-md-4 col-6">
+                                <a href="{{ route('detail-berita', $item->slug) }}" class="news-detail">
+                                    <div class="single-news mb-100">
+                                        <div class="news-img">
+                                            <img src="{{ Storage::url($item->image) }}" alt="" style="">
+                                            <span
+                                                class="news-date color{{ ($index % 4) + 1 }}">{{ \Carbon\Carbon::parse($item->publish_date)->translatedFormat('l, d F Y') }}</span>
+                                        </div>
+                                        <div class="news-caption">
+                                            <div>
+                                                <p class="title">
+                                                    {{ \Illuminate\Support\Str::limit($item->title, 80, '...') }}</p>
+                                            </div>
+                                            <div class="desc">
+                                                {!! $item->content !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @empty
+                            <div class="col-lg-12">
+                                <div class="section-tittle mb-30">
+                                    <h3>Belum ada berita</h3>
+                                </div>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="gray-bg" style="padding: 40px 0">
             <div class="container whats-news-area " >
                 <div class="row">
@@ -277,50 +320,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- section Tittle -->
-        <div class="trending-area fix" style="padding-top: 50px">
-            <div class="container">
-                <div class="news-all">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="section-tittle mb-30">
-                                <h3>Berita Terbaru</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        @forelse ($latestNews as $index => $item)
-                            <div class="col-lg-3 col-md-4 col-6">
-                                <a href="{{ route('detail-berita', $item->slug) }}" class="news-detail">
-                                    <div class="single-news mb-100">
-                                        <div class="news-img">
-                                            <img src="{{ Storage::url($item->image) }}" alt="" style="">
-                                            <span
-                                                class="news-date color{{ ($index % 4) + 1 }}">{{ \Carbon\Carbon::parse($item->publish_date)->translatedFormat('l, d F Y') }}</span>
-                                        </div>
-                                        <div class="news-caption">
-                                            <div>
-                                                <p class="title">
-                                                    {{ \Illuminate\Support\Str::limit($item->title, 80, '...') }}</p>
-                                            </div>
-                                            <div class="desc">
-                                                {!! $item->content !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @empty
-                            <div class="col-lg-12">
-                                <div class="section-tittle mb-30">
-                                    <h3>Belum ada berita</h3>
-                                </div>
-                            </div>
-                        @endforelse
                     </div>
                 </div>
             </div>

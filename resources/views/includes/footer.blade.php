@@ -20,7 +20,7 @@
                             </div>
                             <div class="footer-tittle">
                                 <div class="footer-pera">
-                                    <p>{{$footer->short_profile}}</p>
+                                    <p>{!! $footer->short_profile !!}</p>
                                 </div>
                             </div>
                             <!-- social -->

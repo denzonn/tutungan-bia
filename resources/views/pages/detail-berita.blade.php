@@ -103,7 +103,7 @@
                                         <span
                                             class="color{{ ($index % 4) + 1 }} mb-2">{{ $item->contributor->name }}</span>
                                         <h4><a
-                                                href="details.html">{{ \Illuminate\Support\Str::limit($item->title, 55, '...') }}</a>
+                                                href="{{ route('detail-berita', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 55, '...') }}</a>
                                         </h4>
                                     </div>
                                 </div>
