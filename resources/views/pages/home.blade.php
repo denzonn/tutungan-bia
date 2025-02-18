@@ -139,44 +139,6 @@
                 </div>
             </div>
         </div>
-        <div class="weekly2-news-area  weekly2-pading">
-            <div class="container">
-                <div class="weekly2-wrapper">
-                    <!-- section Tittle -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="section-tittle mb-30">
-                                <h3>Berita Terbaik Minggu Ini</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="weekly2-news-active dot-style d-flex dot-style">
-                                @forelse ($weeklyNews as $item)
-                                    <div class="weekly2-single">
-                                        <div class="weekly2-img">
-                                            <img src="{{ Storage::url($item->image) }}" alt=""
-                                                style="object-fit: cover; width: 100%; height: 150px; border-radius: 5px;">
-                                        </div>
-                                        <div class="weekly2-caption">
-                                            <span class="color1">Berita Mingguan</span>
-                                            <p>
-                                                {{ \Carbon\Carbon::parse($item->publish_date)->translatedFormat('l, d F Y') }}
-                                            </p>
-                                            <h4><a
-                                                    href="{{ route('detail-berita', $item->slug) }}">{{ $item->title }}</a>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                @empty
-                                @endforelse
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="trending-area fix" style="padding-top: 50px">
             <div class="container">
                 <div class="news-all">
@@ -200,7 +162,7 @@
                                         <div class="news-caption">
                                             <div>
                                                 <p class="title">
-                                                    {{ \Illuminate\Support\Str::limit($item->title, 80, '...') }}</p>
+                                                    {{ $item->title }}</p>
                                             </div>
                                             <div class="desc">
                                                 {!! $item->content !!}
@@ -220,6 +182,45 @@
                 </div>
             </div>
         </div>
+        <div class="weekly2-news-area  weekly2-pading">
+            <div class="container">
+                <div class="weekly2-wrapper">
+                    <!-- section Tittle -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section-tittle mb-30">
+                                <h3>Berita Terbaik Bulan Ini</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="weekly2-news-active dot-style d-flex dot-style">
+                                @forelse ($weeklyNews as $item)
+                                    <div class="weekly2-single">
+                                        <div class="weekly2-img">
+                                            <img src="{{ Storage::url($item->image) }}" alt=""
+                                                style="object-fit: cover; width: 100%; height: 150px; border-radius: 5px;">
+                                        </div>
+                                        <div class="weekly2-caption">
+                                            <span class="color1">Berita Bulanan</span>
+                                            <p>
+                                                {{ \Carbon\Carbon::parse($item->publish_date)->translatedFormat('l, d F Y') }}
+                                            </p>
+                                            <h4><a
+                                                    href="{{ route('detail-berita', $item->slug) }}">{{ $item->title }}</a>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                @empty
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="gray-bg" style="padding: 40px 0">
             <div class="container whats-news-area " >
                 <div class="row">

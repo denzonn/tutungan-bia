@@ -80,7 +80,7 @@ class ArticleController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return redirect()->route('artikel.index')->with('toast_success', 'Aktikel Berhasil Ditambahkan!');
+        return redirect()->route('artikel.index')->with('toast_success', 'Artikel Berhasil Ditambahkan!');
     }
 
     /**
@@ -141,7 +141,7 @@ class ArticleController extends Controller
             'editor_id' => auth()->user()->id,
         ]);
 
-        return redirect()->route('artikel.index')->with('toast_success', 'Aktikel Berhasil Diubah!');
+        return redirect()->route('artikel.index')->with('toast_success', 'Artikel Berhasil Diubah!');
     }
 
     /**

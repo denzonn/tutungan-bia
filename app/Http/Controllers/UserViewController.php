@@ -140,23 +140,14 @@ class UserViewController extends Controller
 
     public function berita(Request $request)
     {
-        $topTrending = $this->getTopTrendingNews();
-        $excludedIds = $topTrending->pluck('id')->toArray();
+        $newsLatest = News::where('status', 'published')->take(5)->latest()->get();
+        $excludedIds = $newsLatest->pluck('id')->toArray();
 
-        $topTrendingCount = $topTrending->count();
-        if ($topTrendingCount < 5 && $topTrendingCount > 0) {
-            while ($topTrending->count() < 5) {
-                $topTrending->push($topTrending->get($topTrending->count() % $topTrendingCount));
-            }
-        }
-
-        // Ambil kata kunci pencarian
         $search = $request->query('search');
 
-        // Jika ada kata kunci pencarian, filter data berdasarkan pencarian
         $dataQuery = News::whereNotIn('id', $excludedIds)
             ->where('status', 'published')
-            ->latest();
+            ->orderBy('click_count', 'desc');
 
         if ($search) {
             $dataQuery->where(function ($query) use ($search) {
@@ -169,7 +160,7 @@ class UserViewController extends Controller
         $data = $dataQuery->orderBy('created_at', 'desc')->paginate(12);
         $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
-        return view('pages.berita', compact('data', 'topTrending', 'currentDate'));
+        return view('pages.berita', compact('data', 'newsLatest', 'currentDate'));
     }
 
 
@@ -212,11 +203,13 @@ class UserViewController extends Controller
 
     public function artikel(Request $request)
     {
+        $articleLatest = Article::where('status', 'published')->latest()->take(5)->get();
+        $excludedIds = $articleLatest->pluck('id')->toArray();
+
         $categorySlug = $request->get('category'); // Ambil slug kategori dari request
         $search = $request->get('search'); // Ambil input pencarian
         $query = Article::where('status', 'published')->latest();
 
-        // Filter berdasarkan kategori (slug)
         if ($categorySlug) {
             $category = CategoryArticle::where('slug', $categorySlug)->first();
 
@@ -233,13 +226,14 @@ class UserViewController extends Controller
             });
         }
 
-        $article = $query->orderBy('created_at', 'desc')->paginate(12);
+        $article = $query->orderBy('created_at', 'desc')
+        ->paginate(12);
 
         // Ambil daftar kategori untuk dropdown
         $categories = CategoryArticle::all();
         $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
-        return view('pages.article', compact('article', 'categories', 'categorySlug', 'search', 'currentDate'));
+        return view('pages.article', compact('article', 'categories', 'articleLatest', 'categorySlug', 'search', 'currentDate'));
     }
 
     public function detailArtikel(Request $request, $slug)

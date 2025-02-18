@@ -41,6 +41,43 @@
                     </div>
                 </div>
 
+                @if (!request('search') && !request('category'))
+                    {{-- Hanya tampil jika tidak ada pencarian --}}
+                    <div class="recent-articles mt-4">
+                        <div class="recent-wrapper">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="section-tittle mb-30">
+                                        <h3>Artikel Terbaru</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="recent-active dot-style d-flex">
+                                        @forelse ($articleLatest as $item)
+                                            <div class="single-recent mb-100">
+                                                <div class="what-img" style="height: 250px;">
+                                                    <img src="{{ Storage::url($item->image) }}" alt=""
+                                                        style="object-fit: cover; width: 100%; height: 100%; border-radius: 5px;">
+                                                </div>
+                                                <div class="what-cap">
+                                                    <span class="color1">{{ $item->articleContributor->name }}</span>
+                                                    <h4><a
+                                                            href="{{ route('detail-artikel', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 50, '...') }}</a>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <p>Belum ada Artikel Terbaru.</p>
+                                        @endforelse
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <!-- Filter dan Daftar Artikel -->
                 <div class="mt-4">
                     <div class="row">
@@ -112,7 +149,7 @@
                                                     <div class="article-caption mt-2">
                                                         <h5>{{ \Illuminate\Support\Str::limit($item->title, 60, '...') }}
                                                         </h5>
-                                                        <div class="desc">
+                                                        <div class="desc" style="color: #222 !important">
                                                             {!! $item->content !!}
                                                         </div>
                                                     </div>

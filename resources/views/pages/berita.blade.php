@@ -48,14 +48,14 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="section-tittle mb-30">
-                                        <h3>Berita Terpopuler</h3>
+                                        <h3>Berita Terbaru</h3>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="recent-active dot-style d-flex">
-                                        @forelse ($topTrending as $item)
+                                        @forelse ($newsLatest as $item)
                                             <div class="single-recent mb-100">
                                                 <div class="what-img" style="height: 250px;">
                                                     <img src="{{ Storage::url($item->image) }}" alt=""
@@ -69,7 +69,7 @@
                                                 </div>
                                             </div>
                                         @empty
-                                            <p>Belum ada berita trending.</p>
+                                            <p>Belum ada berita Terbaru.</p>
                                         @endforelse
                                     </div>
                                 </div>
