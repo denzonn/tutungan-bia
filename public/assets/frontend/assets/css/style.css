@@ -5817,10 +5817,6 @@ del {
     font-weight: bold;
 }
 
-.news-detail-area .news-detail .news-content table {
-    width: 100%;
-}
-
 .single-news .news-caption .desc p,
 .single-news .news-caption .desc p a {
     color: #222222;
