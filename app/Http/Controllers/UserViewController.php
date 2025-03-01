@@ -157,7 +157,7 @@ class UserViewController extends Controller
         }
 
         // Pagination data
-        $data = $dataQuery->orderBy('created_at', 'desc')->paginate(12);
+        $data = $dataQuery->orderBy('publish_date', 'desc')->paginate(12);
         $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
         return view('pages.berita', compact('data', 'newsLatest', 'currentDate'));
@@ -226,7 +226,7 @@ class UserViewController extends Controller
             });
         }
 
-        $article = $query->orderBy('created_at', 'desc')
+        $article = $query->orderBy('publish_date', 'desc')
         ->paginate(12);
 
         // Ambil daftar kategori untuk dropdown

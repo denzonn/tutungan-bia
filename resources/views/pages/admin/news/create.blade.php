@@ -26,8 +26,9 @@
                         <div class="col-12 col-md-9">
                             <div class="form-group">
                                 <label for="title">Judul Berita</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
-                                    name="title" value="{{ old('title') }}"  placeholder="Silahkan masukkan Judul Berita" required />
+                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                    id="title" name="title" value="{{ old('title') }}"
+                                    placeholder="Silahkan masukkan Judul Berita" required />
                                 @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -36,8 +37,8 @@
                         <div class="col-12 col-md-3">
                             <div class="form-group">
                                 <label for="title">Tanggal Berita</label>
-                                <input type="date" class="form-control @error('publish_date') is-invalid @enderror" id="publish_date"
-                                    name="publish_date" value="{{ old('publish_date') }}" required />
+                                <input type="date" class="form-control @error('publish_date') is-invalid @enderror"
+                                    id="publish_date" name="publish_date" value="{{ old('publish_date') }}" required />
                                 @error('publish_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -53,7 +54,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="image">Thumbnail Berita</label>
-                                <input type="file" name="image" class="form-control" id="imageInput" accept=".png, .jpg, .jpeg" required />
+                                <input type="file" name="image" class="form-control" id="imageInput"
+                                    accept=".png, .jpg, .jpeg" required />
                             </div>
                         </div>
 
@@ -80,13 +82,18 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
-            .create(document.querySelector('#editor'))
+            .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
+                }
+            })
             .then(editor => {
-                console.log(editor);
+                console.log('CKEditor siap digunakan!');
             })
             .catch(error => {
-                console.error(error);
+                console.error('CKEditor gagal dimuat:', error);
             });
+
 
         // Preview gambar setelah file diunggah
         document.getElementById('imageInput').addEventListener('change', function(event) {

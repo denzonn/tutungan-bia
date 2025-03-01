@@ -52,33 +52,62 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
         $data['slug'] = \Str::slug($data['title']);
 
+        // Pindahkan gambar utama (thumbnail) ke folder berita
         if ($request->hasFile('image')) {
-            $images = $request->file('image');
-
-            $extension = $images->getClientOriginalExtension();
-
-            $random = \Str::random(10);
-            $file_name = "berita" . $random . "." . $extension;
-
-            $data['image'] = $images->storeAs('berita', $file_name, 'public');
+            $image = $request->file('image');
+            $filename = "berita_" . time() . "." . $image->getClientOriginalExtension();
+            $data['image'] = $image->storeAs('public/berita', $filename);
         }
 
+        // Ambil semua gambar dalam konten berita
+        preg_match_all('/<img.*?src=["\'](.*?)["\'].*?>/i', $data['content'], $matches);
+        $images = $matches[1];
+
+        $newContent = $data['content'];
+        $usedImages = [];
+
+        foreach ($images as $image) {
+            if (strpos($image, 'storage/temp_ckeditor/') !== false) {
+                // Pindahkan gambar dari 'temp_ckeditor' ke 'berita'
+                $filename = basename($image);
+                $oldPath = 'public/temp_ckeditor/' . $filename;
+                $newPath = 'public/ckeditor/' . $filename;
+
+                if (Storage::exists($oldPath)) {
+                    Storage::move($oldPath, $newPath);
+                }
+
+                // Perbarui URL dalam konten CKEditor
+                $newImageUrl = asset('storage/ckeditor/' . $filename);
+                $newContent = str_replace($image, $newImageUrl, $newContent);
+                $usedImages[] = $filename;
+            }
+        }
+
+        // Simpan berita dengan konten yang telah diperbarui
         News::create([
             'title' => $data['title'],
             'slug' => $data['slug'],
-            'content' => $data['content'],
+            'content' => $newContent,
             'image' => $data['image'],
             'publish_date' => $data['publish_date'],
             'contributor_id' => auth()->user()->id,
             'editor_id' => auth()->user()->id,
         ]);
 
+        // Hapus gambar yang tidak digunakan dari 'temp_ckeditor'
+        $allTempFiles = Storage::files('public/temp_ckeditor');
+        foreach ($allTempFiles as $tempFile) {
+            $filename = basename($tempFile);
+            if (!in_array($filename, $usedImages)) {
+                Storage::delete($tempFile);
+            }
+        }
+
         return redirect()->route('berita.index')->with('toast_success', 'Berita Berhasil Ditambahkan!');
     }
-
     /**
      * Display the specified resource.
      */
@@ -102,34 +131,56 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-
         $data['slug'] = \Str::slug($data['title']);
 
         $news = News::findOrFail($id);
 
-        // Proses upload gambar baru jika ada
+        // Proses upload gambar utama jika ada
         if ($request->hasFile('image')) {
-            $images = $request->file('image');
-            $extension = $images->getClientOriginalExtension();
-            $random = \Str::random(10);
-            $file_name = "berita" . $random . "." . $extension;
+            $image = $request->file('image');
+            $filename = "berita_" . time() . "." . $image->getClientOriginalExtension();
 
             // Hapus gambar lama jika ada
-            if ($news->image && Storage::exists('public/' . $news->image)) {
-                Storage::delete('public/' . $news->image);
+            if ($news->image && Storage::exists($news->image)) {
+                Storage::delete($news->image);
             }
 
             // Simpan gambar baru
-            $data['image'] = $images->storeAs('berita', $file_name, 'public');
+            $data['image'] = $image->storeAs('public/berita', $filename);
         } else {
             $data['image'] = $news->image;
         }
 
-        // Update data berita
+        // Ambil semua gambar dalam konten berita
+        preg_match_all('/<img.*?src=["\'](.*?)["\'].*?>/i', $data['content'], $matches);
+        $images = $matches[1];
+
+        $newContent = $data['content'];
+        $usedImages = [];
+
+        foreach ($images as $image) {
+            if (strpos($image, 'storage/temp_ckeditor/') !== false) {
+                // Pindahkan gambar dari 'temp_ckeditor' ke 'ckeditor'
+                $filename = basename($image);
+                $oldPath = 'public/temp_ckeditor/' . $filename;
+                $newPath = 'public/ckeditor/' . $filename;
+
+                if (Storage::exists($oldPath)) {
+                    Storage::move($oldPath, $newPath);
+                }
+
+                // Perbarui URL dalam konten CKEditor
+                $newImageUrl = asset('storage/ckeditor/' . $filename);
+                $newContent = str_replace($image, $newImageUrl, $newContent);
+                $usedImages[] = $filename;
+            }
+        }
+
+        // Update berita dengan konten yang diperbarui
         $news->update([
             'title' => $data['title'],
             'slug' => $data['slug'],
-            'content' => $data['content'],
+            'content' => $newContent,
             'image' => $data['image'],
             'publish_date' => $data['publish_date'],
             'editor_id' => auth()->user()->id,
@@ -137,9 +188,17 @@ class NewsController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
+        // Hapus gambar yang tidak digunakan dari 'temp_ckeditor'
+        $allTempFiles = Storage::files('public/temp_ckeditor');
+        foreach ($allTempFiles as $tempFile) {
+            $filename = basename($tempFile);
+            if (!in_array($filename, $usedImages)) {
+                Storage::delete($tempFile);
+            }
+        }
+
         return redirect()->route('berita.index')->with('toast_success', 'Berita Berhasil Diperbarui!');
     }
-
     /**
      * Remove the specified resource from storage.
      */

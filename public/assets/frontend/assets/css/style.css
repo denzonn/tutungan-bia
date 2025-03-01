@@ -139,7 +139,7 @@ h6 {
 }
 p {
     font-family: "Roboto", sans-serif;
-    color: #506172;
+    color: #2c3339;
     font-size: 16px;
     line-height: 30px;
     margin-bottom: 15px;
@@ -3178,6 +3178,8 @@ hr {
     margin: -2px;
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
+    font-size: 24px;
 }
 .footer-area .insta-feed li {
     width: 29.33%;
@@ -5744,19 +5746,19 @@ del {
 .news-detail-area .news-detail .news-caption .news-date {
     font-size: 14px;
     font-weight: 500;
-    color: #bebebe;
+    color: #030e4f;
     display: flex;
     align-items: center;
     justify-content: end;
 }
 
 .news-detail-area .news-detail .news-caption .news-date .social-share i {
-    color: #bebebe;
+    color: #030e4f;
     margin-right: 10px;
 }
 
 .news-detail-area .news-detail .news-caption .news-date .social-share i:hover {
-    color: #fc3f00;
+    color: #00179c;
 }
 
 .news-detail-area .news-detail .news-caption .news-date .divider {
@@ -5776,18 +5778,61 @@ del {
     color: #fc3f00;
 }
 
+.news-detail-area .news-detail .news-content ul,
+.news-detail-area .news-detail .news-content ol {
+    padding-left: 20px !important; /* Pastikan indentasi */
+    margin-bottom: 15px !important;
+    margin-left: ;
+    list-style-position: outside !important;
+}
+
+.news-detail-area .news-detail .news-content ul {
+    list-style-type: disc !important; /* Paksa tampil bullet */
+}
+
+.news-detail-area .news-detail .news-content ol {
+    list-style-type: decimal !important; /* Paksa tampil angka */
+}
+
+.news-detail-area .news-detail .news-content ul li,
+.news-detail-area .news-detail .news-content ol li {
+    display: list-item !important; /* Paksa menjadi item daftar */
+    font-size: 16px;
+    line-height: 1.6;
+    color: #2c3339;
+    margin-left: 10px;
+}
+
+.news-detail-area .news-detail .news-content ul li {
+    list-style: disc;
+}
+
+.news-detail-area .news-detail .news-content ol li {
+    list-style: decimal;
+}
+
+.news-detail-area .news-detail .news-content ul li::marker,
+.news-detail-area .news-detail .news-content ol li::marker {
+    content: normal !important; /* Pastikan marker tidak dihapus */
+    font-weight: bold;
+}
+
+.news-detail-area .news-detail .news-content table {
+    width: 100%;
+}
+
 .single-news .news-caption .desc p,
 .single-news .news-caption .desc p a {
-    color:#222222;
+    color: #222222;
 }
 
 .single-news .news-caption .title {
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
-    max-height: calc(1em* 5);
+    max-height: calc(1em * 5);
     overflow: hidden;
-    color:#222222;
+    color: #222222;
 }
 
 .single-article .article-caption .desc a {
@@ -5884,7 +5929,7 @@ del {
     }
 }
 
-#navigation .active a{
+#navigation .active a {
     color: #fc3f00;
 }
 
@@ -5952,4 +5997,30 @@ del {
 
 .share-btn:hover {
     opacity: 0.8;
+}
+
+figure {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+figure img {
+    margin-bottom: 0 !important;
+}
+
+figure figcaption {
+    text-align: center;
+    color: #939393;
+    font-size: 16px;
+    padding: 5px 0px;
+}
+
+blockquote {
+    border-left: 5px solid #ccc;
+    font-style: italic;
+    margin-left: 0;
+    margin-right: 0;
+    overflow: hidden;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
 }

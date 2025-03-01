@@ -13,10 +13,8 @@
                             <!-- logo -->
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img
-                                        src="{{ Storage::url($footer->logo) }}"
-                                        alt="">
-                                    </a>
+                                    <img src="{{ Storage::url($footer->logo) }}" alt="">
+                                </a>
                             </div>
                             <div class="footer-tittle">
                                 <div class="footer-pera">
@@ -60,15 +58,12 @@
                         </div>
                         <div class="instagram-gellay">
                             <ul class="insta-feed">
-                                <li>
-                                    <a href="{{ $footer->sosial_media_1 }}" target="_blank"><i class="fab fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="{{ $footer->sosial_media_2 }}" target="_blank"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="{{ $footer->sosial_media_3 }}" target="_blank"><i class="fab fa-telegram"></i></a>
-                                </li>
+                                <a href="{{ $footer->sosial_media_1 }}" target="_blank"><i
+                                        class="fab fa-facebook"></i></a>
+                                <a href="{{ $footer->sosial_media_2 }}" target="_blank"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a href="{{ $footer->sosial_media_3 }}" target="_blank"><i
+                                        class="fab fa-telegram"></i></a>
                             </ul>
                         </div>
                     </div>

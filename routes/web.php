@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryArticleController;
+use App\Http\Controllers\Admin\CKEditorController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\NewsController;
@@ -32,6 +33,7 @@ Route::get('/berita/{slug}', [UserViewController::class, 'detailBerita'])->name(
 Route::get('/artikel', [UserViewController::class, 'artikel'])->name('artikel');
 Route::get('/artikel/{slug}', [UserViewController::class, 'detailArtikel'])->name('detail-artikel');
 Route::get('/dokumen', [UserViewController::class, 'dokument'])->name('dokument');
+Route::post('/ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
 
 
 Route::prefix('admin')

@@ -22,8 +22,8 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="title">Judul Artikel</label>
-                        <input type="text" class="form-control @error('title') is-invalid @enderror"
-                            id="title" name="title" value="{{ $data->title }}" required />
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
+                            name="title" value="{{ $data->title }}" required />
                         @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -47,8 +47,8 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="title">Tanggal Artikel</label>
-                                <input type="date" class="form-control @error('publish_date') is-invalid @enderror" id="publish_date"
-                                    name="publish_date" value="{{ $data->publish_date }}" required />
+                                <input type="date" class="form-control @error('publish_date') is-invalid @enderror"
+                                    id="publish_date" name="publish_date" value="{{ $data->publish_date }}" required />
                                 @error('publish_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -114,7 +114,11 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
-            .create(document.querySelector('#editor'))
+            .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
+                }
+            })
             .then(editor => {
                 console.log(editor);
             })

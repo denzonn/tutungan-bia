@@ -64,12 +64,16 @@
                                         <div class="divider"></div>
                                         <div>{{ formatVisits($data->click_count) }} views</div>
                                         <div class="divider"></div>
-                                        <div>{{ $data->created_at->format('d F Y') }}</div>
+                                        <div>{{ \Carbon\Carbon::parse($data->publish_date)->format('d F Y') }}</div>
                                     </div>
                                 </div>
                                 <hr class="mt-2">
                                 <div class="news-content text-justify">
-                                    {!! $data->content !!}
+                                    {!! preg_replace(
+                                        '/<a(.*?)href="(.*?)"/i',
+                                        '<a$1href="$2" target="_blank" rel="noopener noreferrer"',
+                                        $data->content,
+                                    ) !!}
                                 </div>
                                 <div class="news-contributor-editor">
                                     <div class="news-contributor-img">

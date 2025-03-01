@@ -44,7 +44,7 @@ class ArticleController extends Controller
     public function create()
     {
         $categories = CategoryArticle::all();
-        
+
         return view('pages.admin.article.create', compact('categories'));
     }
 
@@ -68,6 +68,31 @@ class ArticleController extends Controller
             $data['image'] = $images->storeAs('article', $file_name, 'public');
         }
 
+        // Ambil semua gambar dalam konten berita
+        preg_match_all('/<img.*?src=["\'](.*?)["\'].*?>/i', $data['content'], $matches);
+        $images = $matches[1];
+
+        $articleContent = $data['content'];
+        $usedImages = [];
+
+        foreach ($images as $image) {
+            if (strpos($image, 'storage/temp_ckeditor/') !== false) {
+                // Pindahkan gambar dari 'temp_ckeditor' ke 'berita'
+                $filename = basename($image);
+                $oldPath = 'public/temp_ckeditor/' . $filename;
+                $articlePath = 'public/ckeditor/' . $filename;
+
+                if (Storage::exists($oldPath)) {
+                    Storage::move($oldPath, $articlePath);
+                }
+
+                // Perbarui URL dalam konten CKEditor
+                $articleImageUrl = asset('storage/ckeditor/' . $filename);
+                $articleContent = str_replace($image, $articleImageUrl, $articleContent);
+                $usedImages[] = $filename;
+            }
+        }
+
         Article::create([
             'title' => $data['title'],
             'slug' => $data['slug'],
@@ -79,6 +104,15 @@ class ArticleController extends Controller
             'editor_id' => auth()->user()->id,
             'updated_at' => Carbon::now(),
         ]);
+
+        // Hapus gambar yang tidak digunakan dari 'temp_ckeditor'
+        $allTempFiles = Storage::files('public/temp_ckeditor');
+        foreach ($allTempFiles as $tempFile) {
+            $filename = basename($tempFile);
+            if (!in_array($filename, $usedImages)) {
+                Storage::delete($tempFile);
+            }
+        }
 
         return redirect()->route('artikel.index')->with('toast_success', 'Artikel Berhasil Ditambahkan!');
     }
@@ -130,6 +164,31 @@ class ArticleController extends Controller
             $data['image'] = $article->image;
         }
 
+        // Ambil semua gambar dalam konten berita
+        preg_match_all('/<img.*?src=["\'](.*?)["\'].*?>/i', $data['content'], $matches);
+        $images = $matches[1];
+
+        $articleContent = $data['content'];
+        $usedImages = [];
+
+        foreach ($images as $image) {
+            if (strpos($image, 'storage/temp_ckeditor/') !== false) {
+                // Pindahkan gambar dari 'temp_ckeditor' ke 'ckeditor'
+                $filename = basename($image);
+                $oldPath = 'public/temp_ckeditor/' . $filename;
+                $articlePath = 'public/ckeditor/' . $filename;
+
+                if (Storage::exists($oldPath)) {
+                    Storage::move($oldPath, $articlePath);
+                }
+
+                // Perbarui URL dalam konten CKEditor
+                $articleImageUrl = asset('storage/ckeditor/' . $filename);
+                $articleContent = str_replace($image, $articleImageUrl, $articleContent);
+                $usedImages[] = $filename;
+            }
+        }
+
         $article->update([
             'title' => $data['title'],
             'slug' => $data['slug'],
@@ -140,6 +199,15 @@ class ArticleController extends Controller
             'status' => $data['status'] ?? 'draft',
             'editor_id' => auth()->user()->id,
         ]);
+
+        // Hapus gambar yang tidak digunakan dari 'temp_ckeditor'
+        $allTempFiles = Storage::files('public/temp_ckeditor');
+        foreach ($allTempFiles as $tempFile) {
+            $filename = basename($tempFile);
+            if (!in_array($filename, $usedImages)) {
+                Storage::delete($tempFile);
+            }
+        }
 
         return redirect()->route('artikel.index')->with('toast_success', 'Artikel Berhasil Diubah!');
     }
@@ -153,6 +221,21 @@ class ArticleController extends Controller
 
         if ($article->image && Storage::exists('public/' . $article->image)) {
             Storage::delete('public/' . $article->image);
+        }
+
+        // Hapus gambar yang digunakan di konten berita
+        preg_match_all('/<img.*?src=["\'](.*?)["\'].*?>/i', $article->content, $matches);
+        $images = $matches[1];
+
+        foreach ($images as $image) {
+            if (strpos($image, 'storage/ckeditor/') !== false) {
+                $filename = basename($image);
+                $tempFilePath = 'public/temp_ckeditor/' . $filename;
+
+                if (Storage::exists($tempFilePath)) {
+                    Storage::delete($tempFilePath);
+                }
+            }
         }
 
         $article->delete();
