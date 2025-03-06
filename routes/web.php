@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\emailSendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserViewController;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,7 @@ Route::get('/artikel', [UserViewController::class, 'artikel'])->name('artikel');
 Route::get('/artikel/{slug}', [UserViewController::class, 'detailArtikel'])->name('detail-artikel');
 Route::get('/dokumen', [UserViewController::class, 'dokument'])->name('dokument');
 Route::post('/ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
-
+Route::post('/sendMail', [emailSendController::class, 'index'])->name('sendMail');
 
 Route::prefix('admin')
     ->middleware(['auth'])

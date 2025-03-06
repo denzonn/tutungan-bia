@@ -33,8 +33,8 @@
 <script src="{{ asset('assets/frontend/assets/js/mail-script.js') }}"></script>
 <script src="{{ asset('assets/frontend/assets/js/jquery.ajaxchimp.min.js') }}"></script>
 
-<!-- Jquery Plugins, main Jquery -->	
+<!-- Jquery Plugins, main Jquery -->
 <script src="{{ asset('assets/frontend/assets/js/plugins.js') }}"></script>
 <script src="{{ asset('assets/frontend/assets/js/main.js') }}"></script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

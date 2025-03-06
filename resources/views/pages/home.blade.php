@@ -220,16 +220,17 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="gray-bg" style="padding: 40px 0">
-            <div class="container whats-news-area " >
+            <div class="container whats-news-area ">
                 <div class="row">
                     <div class="col-12 col-md-8">
                         <div class="col-12">
                             <h2 class="contact-title">Saran</h2>
                         </div>
                         <div class="col-12">
-                            <form class="form-contact contact_form" action="send_email.php" method="post" id="contactForm">
+                            <form class="form-contact contact_form" action="{{ route('sendMail') }}" method="post">
+                                @csrf
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
@@ -239,24 +240,17 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input class="form-control valid" name="name" id="name" type="text"
-                                                onfocus="this.placeholder = ''"
+                                            <input class="form-control valid" name="name" id="name"
+                                                type="text" onfocus="this.placeholder = ''"
                                                 onblur="this.placeholder = 'Masukkan your name'"
                                                 placeholder="Masukkan your name">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input class="form-control valid" name="email" id="email" type="email"
-                                                onfocus="this.placeholder = ''"
+                                            <input class="form-control valid" name="email" id="email"
+                                                type="email" onfocus="this.placeholder = ''"
                                                 onblur="this.placeholder = 'Masukkan email address'" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <input class="form-control" name="subject" id="subject" type="text"
-                                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukkan Subject'"
-                                                placeholder="Masukkan Subject">
                                         </div>
                                     </div>
                                 </div>
