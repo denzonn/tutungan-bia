@@ -23,9 +23,9 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="row d-flex justify-content-between">
-                            <div class="section-tittle mb-10 pt-30" >
-                                <h3 class="mb-0">Kontributor</h3>
-                                <p style="font-size: 12px; color: gray">Kontributor yang berperan dalam membagikan informasi
+                            <div class="section-tittle mb-10 pt-30">
+                                <h3 class="mb-0">Reporter</h3>
+                                <p style="font-size: 12px; color: gray">Reporter yang berperan dalam membagikan informasi
                                 </p>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                                                 @endif
                                                             </div>
                                                             <div class="what-cap">
-                                                                <span class="color1">Kontributor</span>
+                                                                <span class="color1">Reporter</span>
                                                                 <h4><a href="#">{{ $item->name }}</a></h4>
                                                             </div>
                                                         </div>
