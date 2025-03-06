@@ -22,9 +22,9 @@ class ArticleController extends Controller
         // Cek role pengguna yang login
         $user = Auth::user();
 
-        // Jika pengguna dengan role 'CONTRIBUTOR', filter berita berdasarkan contributor_id
-        if ($user->hasRole('CONTRIBUTOR')) {
-            $query->where('contributor_id', $user->id);
+        // Jika pengguna dengan role 'reporter', filter berita berdasarkan reporter_id
+        if ($user->hasRole('REPORTER')) {
+            $query->where('reporter_id', $user->id);
         }
 
         // Fitur pencarian berdasarkan judul
@@ -100,7 +100,7 @@ class ArticleController extends Controller
             'content' => $data['content'],
             'image' => $data['image'],
             'publish_date' => $data['publish_date'],
-            'contributor_id' => auth()->user()->id,
+            'reporter_id' => auth()->user()->id,
             'editor_id' => auth()->user()->id,
             'updated_at' => Carbon::now(),
         ]);

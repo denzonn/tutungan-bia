@@ -45,8 +45,8 @@ class PermissionSeeder extends Seeder
             'editArtikel',
         ]);
 
-        $contributor = Role::updateOrCreate(['name' => 'CONTRIBUTOR'], ['name' => 'CONTRIBUTOR']);
-        $contributor->givePermissionTo([
+        $reporter = Role::updateOrCreate(['name' => 'REPORTER'], ['name' => 'REPORTER']);
+        $reporter->givePermissionTo([
             'viewDashboard',
             'viewBerita',
             'editBerita',

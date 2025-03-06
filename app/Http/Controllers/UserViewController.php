@@ -67,7 +67,7 @@ class UserViewController extends Controller
 
     public function getContributor()
     {
-        return User::role('CONTRIBUTOR')
+        return User::role('REPORTER')
             ->withCount(['newsContributor', 'articleContributor'])
             ->orderByDesc('news_contributor_count')
             ->orderByDesc('article_contributor_count')
@@ -95,13 +95,13 @@ class UserViewController extends Controller
 
     public function getContributorAll()
     {
-        return User::role('CONTRIBUTOR')->get();
+        return User::role('REPORTER')->get();
     }
 
     public function index()
     {
         $trending = $this->getTrending();
-        if($trending){
+        if ($trending) {
             $topTrending = $this->getTopTrending($trending->id);
         } else {
             $topTrending = [];
@@ -227,7 +227,7 @@ class UserViewController extends Controller
         }
 
         $article = $query->orderBy('publish_date', 'desc')
-        ->paginate(12);
+            ->paginate(12);
 
         // Ambil daftar kategori untuk dropdown
         $categories = CategoryArticle::all();

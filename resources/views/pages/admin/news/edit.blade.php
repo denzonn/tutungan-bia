@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    @if ($data->status == 'draft' && !auth()->user()->hasRole('CONTRIBUTOR'))
+                    @if ($data->status == 'draft' && !auth()->user()->hasRole('REPORTER'))
                         <div class="form-group">
                             <label for="status">Status Berita</label>
                             <select name="status" id="status" class="form-control">

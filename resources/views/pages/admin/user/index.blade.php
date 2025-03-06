@@ -59,7 +59,7 @@
                                                 <span
                                                     class="badge py-2 px-4 text-white @if ($role == 'SUPERADMIN') bg-primary
                                         @elseif ($role == 'ADMIN') bg-success
-                                        @elseif ($role == 'CONTRIBUTOR') bg-danger @endif">{{ ucfirst($role) }}</span>
+                                        @elseif ($role == 'REPORTER') bg-danger @endif">{{ ucfirst($role) }}</span>
                                             @endforeach
                                         @else
                                             <span class="text-muted">Tidak ada role</span>

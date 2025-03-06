@@ -15,15 +15,23 @@ class CKEditorController extends Controller
         }
 
         $file = $request->file('upload');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('public/temp_ckeditor', $filename); // Simpan di folder sementara
 
+        // Ambil ekstensi file
+        $extension = $file->getClientOriginalExtension();
+
+        // Buat nama file baru berdasarkan timestamp
+        $filename = 'ckeditor_' . now()->format('YmdHis') . '.' . $extension;
+
+        // Simpan file ke dalam storage/public/temp_ckeditor
+        $file->storeAs('public/temp_ckeditor', $filename);
+
+        // Generate URL agar bisa diakses dari public/storage/temp_ckeditor
         $url = asset('storage/temp_ckeditor/' . $filename);
 
         return response()->json([
             'uploaded' => 1,
-            'fileName' => $filename,
-            'url' => $url
+            'fileName' => $filename, // Nama file baru
+            'url' => $url // CKEditor akan menggunakan URL ini
         ]);
     }
 }

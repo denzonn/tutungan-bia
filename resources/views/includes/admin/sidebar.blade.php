@@ -35,7 +35,7 @@
     </li>
 
     {{-- Role selain SUPERADMIN --}}
-    @role(['ADMIN', 'CONTRIBUTOR'])
+    @role(['ADMIN', 'REPORTER'])
         <li class="nav-item {{ Route::is('artikel.index') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('artikel.index') }}">
                 <i class="fa fa-solid fa-book"></i>
