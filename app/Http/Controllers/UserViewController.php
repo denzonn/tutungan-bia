@@ -284,7 +284,7 @@ class UserViewController extends Controller
             $query->where('name', 'like', '%' . $searchTerm . '%');
         }
 
-        $data = $query->paginate(20);
+        $data = $query->orderBy('updated_at', 'DESC')->paginate(20);
         $currentDate = Carbon::now()->translatedFormat('l, d F Y');
 
         return view('pages.document', compact('data', 'currentDate'));
