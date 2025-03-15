@@ -37,7 +37,7 @@
                                         aria-labelledby="nav-home-tab">
                                         <div class="whats-news-caption">
                                             <div class="row">
-                                                @forelse ($contributor as $item)
+                                                @forelse ($reporter as $item)
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="single-what-news mb-100">
                                                             <div class="what-img" style="height: 180px;">
@@ -58,7 +58,7 @@
                                                         </div>
                                                     </div>
                                                 @empty
-                                                    <p>No contributors found.</p>
+                                                    <p>No Reporter found.</p>
                                                 @endforelse
 
                                             </div>

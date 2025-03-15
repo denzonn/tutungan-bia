@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function newsContributor()
     {
-        return $this->hasMany(News::class, 'contributor_id');
+        return $this->hasMany(News::class, 'reporter_id');
     }
 
     public function newsEditor()
@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function articleContributor()
     {
-        return $this->hasMany(Article::class, 'contributor_id');
+        return $this->hasMany(Article::class, 'reporter_id');
     }
 
     public function articleEditor()

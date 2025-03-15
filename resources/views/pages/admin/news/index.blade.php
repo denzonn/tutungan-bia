@@ -63,7 +63,7 @@
                                             {{ ucfirst($item->status) }}
                                         </span>
                                     </td>
-                                    <td style="width: 10%">{{ $item->contributor->name }}</td>
+                                    <td style="width: 10%">{{ $item->reporter->name }}</td>
                                     <td style="width: 10%">{{ $item->editor->name }}</td>
                                     <td style="width: 20%">
                                         <div class="row ml-1">

@@ -62,7 +62,7 @@
                                                         style="object-fit: cover; width: 100%; height: 100%; border-radius: 5px;">
                                                 </div>
                                                 <div class="what-cap">
-                                                    <span class="color1">{{ $item->contributor->name }}</span>
+                                                    <span class="color1">{{ $item->reporter->name }}</span>
                                                     <h4><a
                                                             href="{{ route('detail-berita', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 50, '...') }}</a>
                                                     </h4>

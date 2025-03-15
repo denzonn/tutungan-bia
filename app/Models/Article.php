@@ -18,7 +18,7 @@ class Article extends Model
         'status',
         'publish_date',
         'click_count',
-        'contributor_id',
+        'reporter_id',
         'editor_id',
     ];
 
@@ -29,7 +29,7 @@ class Article extends Model
 
     public function articleContributor()
     {
-        return $this->belongsTo(User::class, 'contributor_id');
+        return $this->belongsTo(User::class, 'reporter_id');
     }
 
     public function articleEditor()

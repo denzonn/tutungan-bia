@@ -17,13 +17,13 @@ class News extends Model
         'publish_date',
         'status',
         'click_count',
-        'contributor_id',
+        'reporter_id',
         'editor_id',
     ];
 
-    public function contributor()
+    public function reporter()
     {
-        return $this->belongsTo(User::class, 'contributor_id');
+        return $this->belongsTo(User::class, 'reporter_id');
     }
 
     public function editor()

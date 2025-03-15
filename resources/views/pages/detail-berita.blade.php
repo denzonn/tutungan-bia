@@ -77,14 +77,14 @@
                                 </div>
                                 <div class="news-contributor-editor">
                                     <div class="news-contributor-img">
-                                        <img src="{{ $data->contributor->profile_photo
-                                            ? asset('storage/' . $data->contributor->profile_photo)
+                                        <img src="{{ $data->reporter->profile_photo
+                                            ? asset('storage/' . $data->reporter->profile_photo)
                                             : asset('images/user.png') }}"
                                             alt="">
                                     </div>
                                     <div class="contributor-editor">
                                         <div class="news-contributor">
-                                            <div>{{ $data->contributor->name }}</div>
+                                            <div>{{ $data->reporter->name }}</div>
                                         </div>
                                         <div class="news-editor">
                                             <div>Editor : {{ $data->editor->name }}</div>
@@ -104,8 +104,7 @@
                                             style="object-fit: cover; width: 100%; height: 100%; border-radius: 5px;">
                                     </div>
                                     <div class="trand-right-cap" style="width: 65%">
-                                        <span
-                                            class="color{{ ($index % 4) + 1 }} mb-2">{{ $item->contributor->name }}</span>
+                                        <span class="color{{ ($index % 4) + 1 }} mb-2">{{ $item->reporter->name }}</span>
                                         <h4><a
                                                 href="{{ route('detail-berita', $item->slug) }}">{{ \Illuminate\Support\Str::limit($item->title, 55, '...') }}</a>
                                         </h4>

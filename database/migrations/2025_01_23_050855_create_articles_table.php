@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('publish_date')->nullable();
             $table->enum('status', ['draft', 'published', 'rejected'])->default('draft');
             $table->unsignedInteger('click_count')->default(0);
-            $table->foreignId('contributor_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('repoter_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('editor_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

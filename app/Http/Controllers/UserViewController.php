@@ -69,8 +69,8 @@ class UserViewController extends Controller
     {
         return User::role('REPORTER')
             ->withCount(['newsContributor', 'articleContributor'])
-            ->orderByDesc('news_contributor_count')
-            ->orderByDesc('article_contributor_count')
+            ->orderByDesc('news_reporter_count')
+            ->orderByDesc('article_reporter_count')
             ->take(4)
             ->get();
     }
@@ -133,9 +133,9 @@ class UserViewController extends Controller
     public function profil()
     {
         $data = Profile::first();
-        $contributor = $this->getContributorAll();
+        $reporter = $this->getContributorAll();
 
-        return view('pages.profil', compact('data', 'contributor'));
+        return view('pages.profil', compact('data', 'reporter'));
     }
 
     public function berita(Request $request)
@@ -166,7 +166,7 @@ class UserViewController extends Controller
 
     public function detailBerita(Request $request, $slug)
     {
-        $data = News::where('slug', $slug)->with(['contributor', 'editor'])->firstOrFail();
+        $data = News::where('slug', $slug)->with(['reporter', 'editor'])->firstOrFail();
 
         $ipAddress = $request->ip();
         $today = Carbon::today()->toDateString();
